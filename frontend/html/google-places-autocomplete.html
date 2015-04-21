@@ -1,0 +1,18 @@
+<input id="autocomplete_maps" placeholder="Enter your address" type="text"></input>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<script>
+  var autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete_maps')), { types: ['geocode'] });
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var components = autocomplete.getPlace().address_components;
+    var country;
+    var city;
+    for (var i = 0; i < components.length; i++) {
+      var addressType = components[i].types[0];
+      if (addressType == 'locality') city = components[i]['long_name'];
+      if (addressType == 'country') country = components[i]['long_name'];
+    }
+    console.log(country);
+    console.log(city);
+  });
+</script>
